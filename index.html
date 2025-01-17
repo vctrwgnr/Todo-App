@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--<h2>todos</h2>-->
+<form id="form">
+    <input type="text" class="input" id="input" placeholder="What do you need to do today?" autocomplete="off">
+    <button type="button" id="addButton">+</button>
+    <ul class="todos" id="todos">
+        <!--<li class="completed">one</li>-->
+    </ul>
+</form>
+<small>Click to toggle completed. <br> Double-click to edit todo.</small>
+
+<!-- Modal for editing todo -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <!--<h2>Edit Todo</h2>-->
+        <input type="text" id="editInput">
+        <button id="saveEdit">Save</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;400&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    background: #f9f9fc url("images/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h2 {
+    color: rgb(179, 131, 226);
+    font-size: 4rem;
+    text-align: center;
+    /*opacity: 0.7;*/
+}
+
+form {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 100%;
+    width: 500px;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex; /* Use flex to align input and button */
+    flex-direction: column; /* Stack items vertically */
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.input {
+    border: none;
+    color: #444;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 4px 0 0 4px;
+    background-color: #f9f9f9;
+    flex: 1; /* Take available space */
+}
+
+.input::placeholder {
+    color: #d5d5d5;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid rgb(179, 131, 226);
+    background-color: #fff;
+}
+
+#addButton {
+    display: none; /* Initially hidden for non-mobile devices */
+}
+
+.todos {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.todos li {
+    border-top: 1px solid #e5e5e5;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+}
+
+.todos li.completed {
+    color: #b6b6b6;
+    text-decoration: line-through;
+}
+
+small {
+    color: #b5b5b5;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cross {
+    cursor: pointer;
+    color: red;
+    margin-left: 1rem;
+}
+
+#editInput {
+    border: none;
+    color: #444;
+    font-size: 1rem;
+    display: block;
+    width: 100%;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#editInput:focus {
+    outline: none;
+    border: 2px solid rgb(179, 131, 226);
+    background-color: #fff;
+}
+
+#saveEdit {
+    background-color: rgb(179, 131, 226);
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#saveEdit:hover {
+    background-color: rgb(159, 111, 206);
+}
+
+@media (max-width: 600px) {
+    .input-container {
+        width: calc(100% - 60px);
+    }
+    #addButton {
+        display: block;
+        background-color: rgb(179, 131, 226);
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+    }
+}
