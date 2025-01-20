@@ -60,12 +60,6 @@ function addToDo(todo){
             editModal.style.display = 'block';
         });
 
-        span.addEventListener('touchstart', () => {
-            currentEditEl = span;
-            editInput.value = span.innerText;
-            editModal.style.display = 'block';
-        });
-
         toDoEl.appendChild(span);
         toDoEl.appendChild(cross);
         todoUL.appendChild(toDoEl);
