@@ -1,102 +1,106 @@
-const form = document.querySelector('#form');
-const input = document.querySelector('#input');
-const todoUL = document.querySelector('#todos');
-const todos = JSON.parse(localStorage.getItem('todos'));
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+const todosUL = document.getElementById('todos');
+const addButton = document.getElementById('addButton');
 const editModal = document.getElementById('editModal');
 const editInput = document.getElementById('editInput');
 const saveEditButton = document.getElementById('saveEdit');
-const addBtn = document.querySelector('#addButton');
-let currentEditEl = null;
+const closeModalButton = document.querySelector('.close');
 
-if(todos){
-    todos.forEach(todo => addToDo(todo));
+let editTodoEl = null;
+
+const todos = JSON.parse(localStorage.getItem('todos'));
+
+if (todos) {
+    todos.forEach(todo => addTodo(todo));
 }
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    addToDo();
+    addTodo();
 });
 
-addBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if(input.value.trim() !== ""){
-        addToDo();
-    }
+addButton.addEventListener('click', () => {
+    addTodo();
 });
 
-function addToDo(todo){
-    let toDoText = input.value;
+function addTodo(todo) {
+    let todoText = input.value;
 
-    if(todo){
-        toDoText = todo.text;
+    if (todo) {
+        todoText = todo.text;
     }
 
-    if(toDoText){
-        const toDoEl = document.createElement('li');
-        toDoEl.classList.add('todo-item');
-
-        if(todo && todo.completed) {
-            toDoEl.classList.add('completed');
+    if (todoText) {
+        const todoEl = document.createElement('li');
+        if (todo && todo.completed) {
+            todoEl.classList.add('completed');
         }
 
-        const span = document.createElement('span');
-        span.innerText = toDoText;
-        span.addEventListener('click', () => {
-            toDoEl.classList.toggle('completed');
+        // Create the text and delete button
+        const todoTextEl = document.createElement('span');
+        todoTextEl.innerText = todoText;
+        todoEl.appendChild(todoTextEl);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'x';
+        deleteButton.classList.add('delete-button');
+        todoEl.appendChild(deleteButton);
+
+        todoTextEl.addEventListener('click', () => {
+            todoEl.classList.toggle('completed');
             updateLS();
         });
 
-        const cross = document.createElement('span');
-        cross.innerHTML = '&times;';
-        cross.classList.add('cross');
-        cross.addEventListener('click', () => {
-            toDoEl.remove();
+        deleteButton.addEventListener('click', () => {
+            todoEl.remove();
             updateLS();
         });
 
-        span.addEventListener('dblclick', () => {
-            currentEditEl = span;
-            editInput.value = span.innerText;
+        todoEl.addEventListener('dblclick', () => {
             editModal.style.display = 'block';
+            editInput.value = todoTextEl.innerText;
+            editTodoEl = todoTextEl;
         });
 
-        toDoEl.appendChild(span);
-        toDoEl.appendChild(cross);
-        todoUL.appendChild(toDoEl);
+        todosUL.appendChild(todoEl);
         input.value = '';
+
         updateLS();
     }
 }
 
-function updateLS(){
-    const todosEl = document.querySelectorAll('.todo-item span');
+function updateLS() {
+    const todosEl = document.querySelectorAll('li');
+
     const todos = [];
-    todosEl.forEach(toDoEl => {
+
+    todosEl.forEach(todoEl => {
+        const todoTextEl = todoEl.querySelector('span');
         todos.push({
-            text: toDoEl.innerText,
-            completed: toDoEl.parentElement.classList.contains('completed')
+            text: todoTextEl.innerText,
+            completed: todoEl.classList.contains('completed')
         });
     });
+
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-// Modal close event
-document.querySelector('.modal .close').addEventListener('click', () => {
-    editModal.style.display = 'none';
-});
-
-// Save edit
 saveEditButton.addEventListener('click', () => {
-    if (currentEditEl) {
-        currentEditEl.innerText = editInput.value;
+    if (editTodoEl) {
+        editTodoEl.innerText = editInput.value;
         updateLS();
         editModal.style.display = 'none';
     }
 });
 
-// Close modal when clicking outside of it
+closeModalButton.addEventListener('click', () => {
+    editModal.style.display = 'none';
+});
+
+// Close the modal if the user clicks outside of it
 window.addEventListener('click', (event) => {
-    if (event.target == editModal) {
+    if (event.target === editModal) {
         editModal.style.display = 'none';
     }
 });

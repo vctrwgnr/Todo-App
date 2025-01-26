@@ -175,6 +175,18 @@ small {
 #saveEdit:hover {
     background-color: rgb(159, 111, 206);
 }
+.delete-button {
+    background: none;
+    color: rgb(159, 111, 206);
+    border: none;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
 
 @media (max-width: 600px) {
     .input-container {
