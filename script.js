@@ -37,30 +37,23 @@ function addTodo(todo) {
             todoEl.classList.add('completed');
         }
 
-        // Create the text and delete button
-        const todoTextEl = document.createElement('span');
-        todoTextEl.innerText = todoText;
-        todoEl.appendChild(todoTextEl);
+        todoEl.innerText = todoText;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'x';
-        deleteButton.classList.add('delete-button');
-        todoEl.appendChild(deleteButton);
-
-        todoTextEl.addEventListener('click', () => {
+        todoEl.addEventListener('click', () => {
             todoEl.classList.toggle('completed');
             updateLS();
         });
 
-        deleteButton.addEventListener('click', () => {
+        todoEl.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
             todoEl.remove();
             updateLS();
         });
 
         todoEl.addEventListener('dblclick', () => {
             editModal.style.display = 'block';
-            editInput.value = todoTextEl.innerText;
-            editTodoEl = todoTextEl;
+            editInput.value = todoEl.innerText;
+            editTodoEl = todoEl;
         });
 
         todosUL.appendChild(todoEl);
@@ -76,9 +69,8 @@ function updateLS() {
     const todos = [];
 
     todosEl.forEach(todoEl => {
-        const todoTextEl = todoEl.querySelector('span');
         todos.push({
-            text: todoTextEl.innerText,
+            text: todoEl.innerText,
             completed: todoEl.classList.contains('completed')
         });
     });
